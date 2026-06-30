@@ -192,8 +192,6 @@ open &&
 
 <PiercastModal
 
-data={piercast}
-
 close={()=>setOpen(false)}
 
 />
