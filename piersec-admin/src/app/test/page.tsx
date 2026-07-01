@@ -2,6 +2,10 @@ import { createClient } from "@/shared/lib/supabase/client"
 
 const supabase = createClient()
 
-const { data } = await supabase.auth.getUser()
+export default async function Page() {
+  const { data } = await supabase.auth.getUser()
 
-console.log(data.user)
+  console.log(data?.user)
+
+  return <div>Rota de teste</div>
+}

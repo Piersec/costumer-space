@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -130,4 +132,8 @@
   html {
     @apply font-sans;
   }
+}
+
+body {
+  font-family: var(--font-effra), sans-serif;
 }
