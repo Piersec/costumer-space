@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { getEvents } from "@/app/dashboard/events/actions"
+import { getEvents } from "@/app/admin/dashboard/events/actions"
 import EventCardLarge from "./EventCardLarge"
 import EventCardMedium from "./EventCardMedium"
 import EventCardSmall from "./EventCardSmall"
