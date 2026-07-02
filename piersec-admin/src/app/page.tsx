@@ -43,7 +43,7 @@ export default function LoginPage(){
 
 
   return (
-    <div className="p-10 space-y-4">
+    <div className=" h-screen flex flex-col items-center justify-center gap-4">
 
       <Input
         placeholder="email"

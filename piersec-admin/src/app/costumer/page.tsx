@@ -13,7 +13,7 @@ export default function Home() {
 <div className="z-20 relative">
       <Header />
 </div>
-      <main className="max-w-[1400px] mx-auto px-10">
+      <main className="mx-auto max-w-350 px-10">
 
         <div className="z-10">
         <Hero />

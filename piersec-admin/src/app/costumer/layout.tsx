@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Montserrat } from "next/font/google";
 import "../globals.css";
 
-const effra = localFont({
-  src: "../../fonts/Effra.woff2",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
   display: "swap",
 });
 
@@ -18,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={effra.className}>
+    <div className={montserrat.className}>
       {children}
     </div>
   );
