@@ -1,8 +1,7 @@
-import { createClient } from "@/shared/lib/supabase/client"
-
-const supabase = createClient()
+import { createClient } from "@/shared/lib/supabase/server"
 
 export default async function Page() {
+  const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
 
   console.log(data?.user)

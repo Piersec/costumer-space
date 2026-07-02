@@ -15,13 +15,7 @@ import {
   deleteNews
 } from "./actions"
 
-import { createClient } from "@/shared/lib/supabase/client"
-
-const supabase = createClient()
-
-const { data } = await supabase.auth.getUser()
-
-console.log(data.user)
+// Removed top-level Supabase client usage to avoid module evaluation during build
 
 
 export default function NewsPage() {
