@@ -29,25 +29,25 @@ useEffect(() => {
       <nav>
         <ul className="flex gap-4">
 
-          <li className="rounded-full bg-gray-600 px-8 py-2">
+          <li className="rounded-full bg-black px-8 py-2">
             <a
-              href="/dashboard"
+              href="admin/dashboard"
               className="text-lg  text-white"
             >
               Dashboard
             </a>
           </li>
 
-          <li className="rounded-full bg-gray-600 px-8 py-2">
+          <li className="rounded-full bg-black px-8 py-2">
             <a
-              href="dashboard/costumer-area"
+              href="admin/dashboard/costumer-area"
               className="text-lg text-white"
             >
               Área do Cliente
             </a>
           </li>
 
-          <li className="rounded-full bg-gray-600 px-8 py-2">
+          <li className="rounded-full bg-black px-8 py-2">
             <a
               href="/dashboard"
               className="text-lg text-white"

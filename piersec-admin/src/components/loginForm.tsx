@@ -40,33 +40,43 @@ export default function LoginPage() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-        
-        
-
       <div className="">
-        
+        <div className=" flex flex-col gap-4 w-[400px] p-8 rounded-lg border border-border">
+          
+          <h1>
+            Bem-vindo ao <span className="font-bold">Piersec Admin!</span>
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            Por favor, faça login para continuar.
+          </p>
 
-      <div className="">
-        
-        <Button onClick={login} className="flex items-center gap-2 bg-accent text-accent-foreground hover:bg-accent/90">
-          <FontAwesomeIcon icon={faMicrosoft} />
-          Login via SSO
-        </Button>
+          <Button
+            onClick={login}
+            className="flex items-center gap-2 bg-accent text-accent-foreground hover:bg-accent/90"
+          >
+            <FontAwesomeIcon icon={faMicrosoft} />
+            Login via SSO
+          </Button>
 
-        <hr />
+          <hr />
+          <p className="text-muted-foreground text-sm items-center flex justify-center">
+            OU
+          </p>
 
-        <Input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
+          <Input
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <Input
-          placeholder="senha"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <Input
+            placeholder="senha"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <Button onClick={login}>Entrar</Button>
+          <Button onClick={login}>Entrar</Button>
+        </div>
       </div>
-      </div>
-
     </div>
   );
 }

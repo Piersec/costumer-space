@@ -12,7 +12,8 @@ export default function DashboardLayout({
 }>) {
   return (
     <>
-      <div className="sticky top-3 z-50 mt-10 mx-17.5 backdrop-blur-xs bg-background/10">
+      <div className="sticky top-3 z-50 mt-10 mx-70 backdrop-blur-xs bg-background/10">
+      <Header />
       </div>
 
       <main>{children}</main>

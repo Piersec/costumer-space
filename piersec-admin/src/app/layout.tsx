@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 
+import SplashScreen from "@/components/splash";
+
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -21,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={montserrat.variable}>
       <body className={montserrat.className}>
+        <SplashScreen />
         {children}
       </body>
     </html>
