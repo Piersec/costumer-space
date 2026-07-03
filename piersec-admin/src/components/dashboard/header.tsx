@@ -31,7 +31,7 @@ useEffect(() => {
 
           <li className="rounded-full bg-black px-8 py-2">
             <a
-              href="admin/dashboard"
+              href="/dashboard"
               className="text-lg  text-white"
             >
               Dashboard
@@ -40,7 +40,7 @@ useEffect(() => {
 
           <li className="rounded-full bg-black px-8 py-2">
             <a
-              href="admin/dashboard/costumer-area"
+              href="dashboard/costumer-area"
               className="text-lg text-white"
             >
               Área do Cliente

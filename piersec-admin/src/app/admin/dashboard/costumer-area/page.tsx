@@ -1,11 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
+
+import Image from "next/image";
+
 import { Header } from "@/components/dashboard/header";
 
 export default function costumerArea() {
   return (
     <>
+
+    
+
       <div className="flex justify-center flex-col mx-70">
+
+        <hr className="mt-10" />
 
         <a
           className="flex justify-center"
@@ -26,6 +34,46 @@ export default function costumerArea() {
         <div>
             <h1 className="text-2xl font-bold mt-10">Olá, ! O que você gostaria de fazer hoje?</h1>
         </div>
+
+                  <div className="grid grid-cols-3 gap-4 mt-8">
+        
+                    <a href="">
+                    <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
+                      <Image 
+                       src="/cards/noticias.png" 
+                       alt="Marketing Card" 
+                       width={500} 
+                       height={300} 
+                       className="rounded-lg hover:backdrop-blur-xs border border-border"
+                       />
+                    </div>
+                    </a>
+                    <a href="">
+                    <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
+                      <Image 
+                       src="/cards/piercast.png" 
+                       alt="New User Card" 
+                       width={500} 
+                       height={300} 
+                       className="rounded-lg hover:backdrop-blur-xs border border-border"
+                       />
+                    </div>
+                    </a>
+                    <a href="/dashboard/config">
+                    <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
+                      <Image 
+                       src="/cards/eventos.png" 
+                       alt="Config Card" 
+                       width={500} 
+                       height={300} 
+                       className="rounded-lg hover:backdrop-blur-xs border border-border"
+                       />
+                    </div>
+                    </a>
+        
+                    
+        
+                  </div>
 
 
 
