@@ -27,7 +27,7 @@ export default function EventCardMedium({ event }: { event: any }) {
 
         {/* DATA */}
         <div 
-          className="w-[150px] bg-black/40 backdrop-blur-md flex flex-col items-center justify-center shrink-0 relative z-10"
+          className="w-[250px] bg-black/40 backdrop-blur-md flex flex-col items-center justify-center shrink-0 relative z-10"
         >
           <span 
             className="font-bold text-6xl"
@@ -60,7 +60,7 @@ export default function EventCardMedium({ event }: { event: any }) {
               {event.title}
             </h3>
 
-            <p className="text-white/80 mt-2 text-lg line-clamp-2">
+            <p className="text-white/80 mt-2 text-sm line-clamp-2">
               {event.description}
             </p>
 

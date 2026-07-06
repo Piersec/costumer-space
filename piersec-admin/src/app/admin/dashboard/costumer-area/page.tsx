@@ -1,18 +1,39 @@
+"use client";
+
+import { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
+
+import PodcastsPage from "../piercast/page";
+import NewsPage from "../news/page";
+import EventsPage from "../events/page";
 
 import Image from "next/image";
 
 import { Header } from "@/components/dashboard/header";
 
 export default function costumerArea() {
+  const [activePage, setActivePage] = useState<string | null>(null);
+
+  const renderPage = () => {
+    switch (activePage) {
+      case "news":
+        return <NewsPage />;
+
+      case "podcasts":
+        return <PodcastsPage />;
+
+      case "events":
+        return <EventsPage />;
+
+      default:
+        return null;
+    }
+  };
   return (
     <>
-
-    
-
       <div className="flex justify-center flex-col mx-70">
-
         <hr className="mt-10" />
 
         <a
@@ -30,54 +51,55 @@ export default function costumerArea() {
         </a>
 
         <hr />
-        
+
         <div>
-            <h1 className="text-2xl font-bold mt-10">Olá, ! O que você gostaria de fazer hoje?</h1>
+          <h1 className="text-2xl font-bold mt-10">
+            Olá, ! O que você gostaria de fazer hoje?
+          </h1>
         </div>
 
-                  <div className="grid grid-cols-3 gap-4 mt-8">
-        
-                    <a href="">
-                    <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
-                      <Image 
-                       src="/cards/noticias.png" 
-                       alt="Marketing Card" 
-                       width={500} 
-                       height={300} 
-                       className="rounded-lg hover:backdrop-blur-xs border border-border"
-                       />
-                    </div>
-                    </a>
-                    <a href="">
-                    <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
-                      <Image 
-                       src="/cards/piercast.png" 
-                       alt="New User Card" 
-                       width={500} 
-                       height={300} 
-                       className="rounded-lg hover:backdrop-blur-xs border border-border"
-                       />
-                    </div>
-                    </a>
-                    <a href="/dashboard/config">
-                    <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
-                      <Image 
-                       src="/cards/eventos.png" 
-                       alt="Config Card" 
-                       width={500} 
-                       height={300} 
-                       className="rounded-lg hover:backdrop-blur-xs border border-border"
-                       />
-                    </div>
-                    </a>
-        
-                    
-        
-                  </div>
+        <div className="grid grid-cols-3 gap-4 mt-8">
+          <div
+            onClick={() => setActivePage("news")}
+            className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
+          >
+            <Image
+              src="/cards/noticias.png"
+              alt="Marketing Card"
+              width={500}
+              height={300}
+              className="rounded-lg border border-border"
+            />
+          </div>
 
+          <div
+            onClick={() => setActivePage("podcasts")}
+            className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
+          >
+            <Image
+              src="/cards/piercast.png"
+              alt="New User Card"
+              width={500}
+              height={300}
+              className="rounded-lg border border-border"
+            />
+          </div>
 
-
+          <div
+            onClick={() => setActivePage("events")}
+            className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
+          >
+            <Image
+              src="/cards/eventos.png"
+              alt="Config Card"
+              width={500}
+              height={300}
+              className="rounded-lg border border-border"
+            />
+          </div>
+        </div>
       </div>
+      <div className="my-10">{renderPage()}</div>
     </>
   );
 }

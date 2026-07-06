@@ -64,6 +64,7 @@ export default function NewsCarousel() {
     <section
       className="
         relative
+        w-full
         h-[320px]
         rounded-2xl
         overflow-hidden

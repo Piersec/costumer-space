@@ -1,17 +1,31 @@
 "use client";
 
+
 import Cropper from "react-easy-crop";
 
 import { useEffect, useState, useCallback } from "react";
 
-import { createEvent, getEvents, deleteEvent } from "./actions";
+import {
+  createEvent,
+  getEvents,
+  updateEvent,
+  deleteEvent,
+} from "./actions";
+
+import EventCardLarge from "@/components/costumer/events/EventCardLarge";
+import EventCardMedium from "@/components/costumer/events/EventCardMedium";
+import EventCardSmall from "@/components/costumer/events/EventCardSmall"
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Import } from "lucide-react";
 
 export default function EventsPage() {
+
+  const [editingId, setEditingId] = useState<string | null>(null);
+
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
 
   const [croppedImage, setCroppedImage] = useState("");
@@ -56,6 +70,28 @@ export default function EventsPage() {
       [field]: value,
     });
   }
+
+  function editEvent(event: any) {
+  setEditingId(event.id);
+
+  setForm({
+    image_url: event.image_url,
+    date_label: event.date_label,
+    badge: event.badge,
+    title: event.title,
+    description: event.description,
+    location: event.location,
+    time_label: event.time_label,
+    event_link: event.event_link,
+  });
+
+  setCroppedImage(event.image_url);
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 
   function selectImage(e: any) {
     const file = e.target.files?.[0];
@@ -118,8 +154,12 @@ export default function EventsPage() {
 
     setImage("");
   }
+  function updateEvent(editingId: string, arg1: { image_url: string; date_label: string; badge: string; title: string; description: string; location: string; time_label: string; event_link: string; }) {
+    throw new Error("Function not implemented.");
+  }
+
   return (
-    <div className="mx-70">
+    <div className="mx-80">
       <div className="my-10">
         <h1 className="text-3xl font-bold">EVENTOS</h1>
 
@@ -276,28 +316,67 @@ export default function EventsPage() {
             />
           </div>
 
-          <div className="flex gap-3">
-            <Button variant="outline" onClick={() => setPreview(true)}>
-              Pré visualizar
-            </Button>
+         <div className="flex gap-3">
+  {editingId && (
+    <Button
+      variant="secondary"
+      onClick={() => {
+        setEditingId(null);
 
-            <Button
-              onClick={async () => {
-                await createEvent({
-                  ...form,
+        setForm({
+          image_url: "",
+          date_label: "",
+          badge: "",
+          title: "",
+          description: "",
+          location: "",
+          time_label: "",
+          event_link: "",
+        });
 
-                  image_url: croppedImage,
+        setCroppedImage("");
+      }}
+    >
+      Cancelar edição
+    </Button>
+  )}
 
-                  is_active: true,
-                });
+  <Button className="w-full"
+    onClick={async () => {
+      if (editingId) {
+        await updateEvent(editingId, {
+          ...form,
+          image_url: croppedImage,
+        });
+      } else {
+        await createEvent({
+          ...form,
+          image_url: croppedImage,
+          is_active: true,
+        });
+      }
 
-                loadEvents();
-              }}
-            >
-              Publicar evento
-            </Button>
-          </div>
-        </div>
+      setEditingId(null);
+
+      setForm({
+        image_url: "",
+        date_label: "",
+        badge: "",
+        title: "",
+        description: "",
+        location: "",
+        time_label: "",
+        event_link: "",
+      });
+
+      setCroppedImage("");
+
+      loadEvents();
+    }}
+  >
+    {editingId ? "Salvar alterações" : "Publicar evento"}
+  </Button>
+</div>
 
         {/* PREVIEW */}
 
@@ -339,29 +418,56 @@ export default function EventsPage() {
         )}
       </div>
 
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Eventos publicados</h2>
-
-        {events.map((event) => (
-          <div key={event.id} className="border rounded-xl p-5">
-            <h3 className="font-bold">{event.title}</h3>
-
-            <p>{event.date_label}</p>
-
-            <Button
-              variant="destructive"
-              className="mt-3"
-              onClick={async () => {
-                await deleteEvent(event.id);
-
-                loadEvents();
-              }}
-            >
-              Excluir
-            </Button>
-          </div>
-        ))}
       </div>
+
+      <div className="space-y-4 mt-10">
+  <h2 className="text-xl font-bold">Eventos publicados</h2>
+
+  {events.map((event) => (
+    <div
+      key={event.id}
+      className="border rounded-xl p-5 space-y-6"
+    >
+      {/* Informações */}
+      <div>
+        <h3 className="font-bold text-lg">{event.title}</h3>
+        <p className="text-muted-foreground">{event.date_label}</p>
+      </div>
+
+      {/* Preview */}
+      <div className="space-y-4 border-t pt-4">
+        <h4 className="font-semibold">Preview</h4>
+
+        <div className="grid gap-4">
+          <EventCardLarge event={event} />
+          <EventCardMedium event={event} />
+          <EventCardSmall event={event} />
+        </div>
+      </div>
+
+      <div className="flex gap-2">
+  <Button
+    variant="outline"
+    onClick={() => editEvent(event)}
+  >
+    Editar
+  </Button>
+
+  <Button
+    variant="destructive"
+    onClick={async () => {
+      await deleteEvent(event.id);
+      loadEvents();
+    }}
+  >
+    Excluir
+  </Button>
+</div>
+    </div>
+  ))}
+</div>
+
+
     </div>
   );
 }
