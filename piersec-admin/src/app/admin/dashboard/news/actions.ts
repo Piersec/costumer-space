@@ -1,152 +1,97 @@
-"use server"
+"use server";
 
-import { createClient } from "@/shared/lib/supabase/server"
+import { createClient } from "@/shared/lib/supabase/server";
 
+export async function createNews(data: any) {
+  const supabase = await createClient();
 
-export async function createNews(data:any){
+  let image_url = "";
 
-  const supabase = await createClient()
+  if (data.image_file) {
+    const file = data.image_file;
 
+    const fileName = `${Date.now()}-${file.name}`;
 
-  let image_url = ""
+    const { error: uploadError } = await supabase.storage
+      .from("news")
+      .upload(fileName, file);
 
-
-  if(data.image_file){
-
-    const file = data.image_file
-
-
-    const fileName =
-      `${Date.now()}-${file.name}`
-
-
-    const { error:uploadError } =
-      await supabase.storage
-        .from("news")
-        .upload(
-          fileName,
-          file
-        )
-
-
-    if(uploadError){
-      throw new Error(uploadError.message)
+    if (uploadError) {
+      throw new Error(uploadError.message);
     }
 
+    const { data: urlData } = supabase.storage
+      .from("news")
+      .getPublicUrl(fileName);
 
-    const { data:urlData } =
-      supabase.storage
-        .from("news")
-        .getPublicUrl(fileName)
-
-
-    image_url = urlData.publicUrl
-
+    image_url = urlData.publicUrl;
   }
 
+const { error } = await supabase.from("news_items").insert({
+  image_url,
+  tag: data.tag || "geral",
+  title: data.title || "Sem título",
+  description: data.description || "Sem descrição",
+});
 
-
-  const { error } =
-    await supabase
-      .from("news_items")
-      .insert({
-
-        image_url,
-
-        tag:data.tag,
-
-        title:data.title,
-
-        description:data.description,
-
-      })
-
-
-  if(error){
-    throw new Error(error.message)
+  if (error) {
+    throw new Error(error.message);
   }
-
 
   return {
-    success:true
-  }
-
+    success: true,
+  };
 }
 
 export async function getNews() {
-
-  const supabase = await createClient()
-
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("news_items")
     .select("*")
     .order("created_at", {
-      ascending: false
+      ascending: false,
+    });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function updateNews(id: string, data: any) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("news_items")
+    .update({
+      image_url: data.image_url,
+      tag: data.tag,
+      title: data.title,
+      description: data.description,
     })
+    .eq("id", id);
 
-
-  if(error){
-    throw new Error(error.message)
+  if (error) {
+    throw new Error(error.message);
   }
-
-
-  return data
-
-}
-
-export async function updateNews(
-  id:string,
-  data:any
-){
-
-  const supabase = await createClient()
-
-
-  const { error } =
-    await supabase
-      .from("news_items")
-      .update({
-
-        image_url:data.image_url,
-        tag:data.tag,
-        title:data.title,
-        description:data.description,
-
-      })
-      .eq("id",id)
-
-
-  if(error){
-    throw new Error(error.message)
-  }
-
 
   return {
-    success:true
-  }
-
+    success: true,
+  };
 }
 
-export async function deleteNews(id:string){
+export async function deleteNews(id: string) {
+  const supabase = await createClient();
 
-  const supabase = await createClient()
+  const { error } = await supabase.from("news_items").delete().eq("id", id);
 
-
-  const { error } =
-    await supabase
-      .from("news_items")
-      .delete()
-      .eq("id", id)
-
-
-  if(error){
-    throw new Error(error.message)
+  if (error) {
+    throw new Error(error.message);
   }
-
 
   return {
-    success:true
-  }
-
+    success: true,
+  };
 }

@@ -5,9 +5,9 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
 
-import PodcastsPage from "../piercast/page";
-import NewsPage from "../news/page";
-import EventsPage from "../events/page";
+import PodcastsPage from "../piercast/piercast";
+import NewsPage from "../news/noticias";
+import EventsPage from "../events/eventos";
 
 import Image from "next/image";
 
