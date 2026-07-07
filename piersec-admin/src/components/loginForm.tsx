@@ -7,17 +7,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/shared/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+const DEFAULT_REDIRECT = "/costumer";
+
 export default function LoginPage() {
   const supabase = createClient();
+  const searchParams = useSearchParams();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loadingSSO, setLoadingSSO] = useState(false);
   const [loadingPassword, setLoadingPassword] = useState(false);
+
+  // "next" vem do middleware quando o usuário tentava acessar
+  // uma URL protegida sem estar logado; senão, cai no default
+  const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
+
+  // Mensagens de erro vindas do /auth/callback
+  const errorParam = searchParams.get("error");
+  const errorMessage = errorParam
+    ? errorParam === "auth_failed"
+      ? "Não foi possível concluir o login. Tente novamente."
+      : "Login cancelado ou não autorizado."
+    : null;
 
   // Login via e-mail e senha
   async function loginWithPassword() {
@@ -35,7 +51,7 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/admin/dashboard";
+    window.location.href = next;
   }
 
   // Login via SSO Microsoft
@@ -46,7 +62,7 @@ export default function LoginPage() {
       provider: "azure",
       options: {
         // pra onde o usuário volta depois do callback processar a sessão
-        redirectTo: `${window.location.origin}/auth/callback?next=/admin/dashboard`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
         scopes: "email openid profile",
       },
     });
@@ -69,6 +85,12 @@ export default function LoginPage() {
           <p className="text-muted-foreground mb-10  text-sm">
             Por favor, faça login para continuar.
           </p>
+
+          {errorMessage && (
+            <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+              {errorMessage}
+            </div>
+          )}
 
           <Button
             onClick={loginWithMicrosoft}
