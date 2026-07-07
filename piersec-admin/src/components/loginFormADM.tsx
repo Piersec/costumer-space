@@ -1,10 +1,7 @@
 "use client";
 
-import BotaoComTooltip from "./ui/Tooltip/TooltipHelp";
-
 import { faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
 import { useState } from "react";
 import { createClient } from "@/shared/lib/supabase/client";
@@ -62,61 +59,41 @@ export default function LoginPage() {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="">
-        <div className=" flex flex-col w-[400px] p-8 rounded-lg border border-border">
+        <div className=" flex flex-col gap-4 w-[400px] p-8 rounded-lg border border-border">
+
           <h1>
-            Bem-vindo à <span className="font-bold">Área do Cliente!</span>
+            Bem-vindo ao <span className="font-bold">Piersec Admin!</span>
           </h1>
-          <p className="text-muted-foreground mb-10  text-sm">
+          <p className="text-muted-foreground text-sm">
             Por favor, faça login para continuar.
           </p>
 
           <Button
             onClick={loginWithMicrosoft}
             disabled={loadingSSO}
-            className="flex items-center mb-1 bg-accent text-accent-foreground hover:bg-accent/90"
+            className="flex items-center gap-2 bg-accent text-accent-foreground hover:bg-accent/90"
           >
             <FontAwesomeIcon icon={faMicrosoft} />
             {loadingSSO ? "Redirecionando..." : "Login via SSO"}
           </Button>
-          <div className="flex justify-center items-center gap-2">
-            <p className="text-muted-foreground flex justify-center text-[15px]">
-              (Recomendado)
-            </p>
-            <button 
-            title="O acesso utiliza Single Sign-On (SSO). Após entrar com sua conta Microsoft, você acessará o SharePoint sem uma nova autenticação.">
-            <FontAwesomeIcon className="text-muted-foreground hover:text-black transition-all text-sm" icon={faCircleQuestion} />
-            </button>
-          </div>
-          <div className="flex items-center my-4">
-            <div className="border-t border-0.1 border-gray-400/20 flex-grow"></div>
-            <div className="px-3 text-gray-800/30 text-sm">OU</div>
-            <div className="border-t border-0.1 border-gray-400/20 flex-grow"></div>
-          </div>
 
-          <div className="flex flex-col mb-4">
-          <label className="text-sm">E-mail</label>
+          <hr />
+          <p className="text-muted-foreground text-sm items-center flex justify-center">
+            OU
+          </p>
+
           <Input
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          </div> 
 
-          <div className="flex flex-col">
-          <label className="text-sm">Senha</label>
           <Input
             placeholder="senha"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          </div>
-
-          <p className="text-muted-foreground mb-5 p-3 text-[10px]">
-            {" "}
-            Por favor, peça o acesso para o administrador caso não tenha e-mail
-            cadastrado ou entre via SSO.
-          </p>
 
           <Button onClick={loginWithPassword} disabled={loadingPassword}>
             {loadingPassword ? "Entrando..." : "Entrar"}
