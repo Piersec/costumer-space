@@ -1,5 +1,7 @@
 "use client";
 
+import ColorMode from "../ui/ColorMode";
+
 import { getProfile } from "@/app/actions/profile";
 
 import { useState, useEffect } from "react";
@@ -24,7 +26,8 @@ useEffect(() => {
 }, []);
 
   return (
-    <header className="mt-4 flex h-16 items-center justify-between rounded-full border px-3">
+    <>
+    <header className="flex h-16 items-center justify-between rounded-full border px-3">
 
       <nav>
         <ul className="flex gap-4">
@@ -73,5 +76,6 @@ useEffect(() => {
 />
 
     </header>
+    </>
   );
 }

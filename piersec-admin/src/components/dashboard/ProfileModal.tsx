@@ -145,8 +145,8 @@ export default function ProfileModal({ open, onClose, onAvatarChange }: Props) {
   };
 
   const handleLogout = async () => {
-    await signOut();
-  };
+  await signOut("/admin/login"); // ou "/login", se for a área de cliente
+};
 
   if (!open) return null;
 

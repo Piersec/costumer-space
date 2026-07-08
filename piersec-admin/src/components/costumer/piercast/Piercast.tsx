@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import { getPodcasts } from "@/app/admin/dashboard/piercast/actions";
+import { getPodcasts } from "@/app/admin/(dashboard)/dashboard/piercast/actions";
 
 import PodcastCard from "./Podcastcard";
 import PiercastModal from "./PiercastModal";

@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import SplashScreen from "@/components/splash";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -21,10 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={montserrat.variable}>
+    <html lang="pt-BR" className={montserrat.variable} suppressHydrationWarning>
       <body className={montserrat.className}>
-        <SplashScreen />
-        {children}
+        <ThemeProvider>
+          <SplashScreen />
+
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

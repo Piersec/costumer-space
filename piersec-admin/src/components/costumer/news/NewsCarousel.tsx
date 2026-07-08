@@ -5,7 +5,7 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 import { useEffect, useState } from "react";
-import { getNews } from "@/app/admin/dashboard/news/actions";
+import { getNews } from "@/app/admin/(dashboard)/dashboard/news/actions";
 
 export default function NewsCarousel() {
   const [news, setNews] = useState<any[]>([]);

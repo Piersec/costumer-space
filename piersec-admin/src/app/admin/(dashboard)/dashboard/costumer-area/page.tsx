@@ -63,7 +63,7 @@ export default function costumerArea() {
             onClick={() => setActivePage("news")}
             className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
           >
-            <Image
+            <Image title="Notícias"
               src="/cards/noticias.png"
               alt="Marketing Card"
               width={500}
@@ -76,7 +76,7 @@ export default function costumerArea() {
             onClick={() => setActivePage("podcasts")}
             className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
           >
-            <Image
+            <Image title="PierCast"
               src="/cards/piercast.png"
               alt="New User Card"
               width={500}
@@ -89,7 +89,7 @@ export default function costumerArea() {
             onClick={() => setActivePage("events")}
             className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
           >
-            <Image
+            <Image title="Eventos"
               src="/cards/eventos.png"
               alt="Config Card"
               width={500}

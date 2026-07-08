@@ -77,27 +77,6 @@ export default function LoginPage() {
             {loadingSSO ? "Redirecionando..." : "Login via SSO"}
           </Button>
 
-          <hr />
-          <p className="text-muted-foreground text-sm items-center flex justify-center">
-            OU
-          </p>
-
-          <Input
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <Input
-            placeholder="senha"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <Button onClick={loginWithPassword} disabled={loadingPassword}>
-            {loadingPassword ? "Entrando..." : "Entrar"}
-          </Button>
         </div>
       </div>
     </div>

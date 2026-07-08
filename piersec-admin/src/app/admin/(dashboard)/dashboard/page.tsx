@@ -26,10 +26,10 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-3 gap-4 mt-8">
 
-            <a href="">
+            <a title="Share Point" target="_blank" rel="noopener noreferrer" href="https://piersec.sharepoint.com">
             <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
               <Image 
-               src="/cards/marketing.png" 
+               src="/cards/sharepoint.png" 
                alt="Marketing Card" 
                width={500} 
                height={300} 
@@ -37,7 +37,7 @@ export default function DashboardPage() {
                />
             </div>
             </a>
-            <a href="">
+            <a href="" title="Novos Usuarios" target="_blank" rel="noopener noreferrer">
             <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
               <Image 
                src="/cards/newuser.png" 
@@ -48,7 +48,7 @@ export default function DashboardPage() {
                />
             </div>
             </a>
-            <a href="/dashboard/config">
+            <a href="/dashboard/config" title="Configurações" target="_blank" rel="noopener noreferrer">
             <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
               <Image 
                src="/cards/configuracao.png" 
