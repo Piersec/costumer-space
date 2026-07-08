@@ -81,7 +81,7 @@ export function UsersSettings() {
     }
   }
 
-  const getRoleBadgeColor = (role: string) => {
+  const getRoleBadgeColor = (role?: string) => {
     switch (role) {
       case "admin":
         return "bg-red-500"
@@ -94,13 +94,13 @@ export function UsersSettings() {
     }
   }
 
-  const getRoleLabel = (role: string) => {
+  const getRoleLabel = (role?: string) => {
     const labels: Record<string, string> = {
       admin: "Administrador",
       editor: "Editor",
       viewer: "Visualizador",
     }
-    return labels[role] || role
+    return labels[role || "viewer"] || role || "Visualizador"
   }
 
   return (
