@@ -22,7 +22,7 @@ export default function ConfigPage() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-200/20 rounded-lg p-4 mb-6">
+          <div className="bg-gradient-to-r from-blue-500/10 to-transparent border border-blue-200/20 rounded-lg p-4 mb-6">
             <p className="text-sm text-muted-foreground">
               💡 <strong>Dica:</strong> Alterações em algumas configurações podem exigir uma atualização do site. Certifique-se de fazer backup das suas configurações importantes.
             </p>

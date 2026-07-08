@@ -1,13 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
 import { Badge } from "@/components/ui/badge"
-import { Save, Trash2 } from "lucide-react"
+import { Save, Trash2, Loader } from "lucide-react"
+import {
+  getContentModules,
+  updateContentModule,
+} from "@/app/admin/(dashboard)/dashboard/config/actions"
 
 interface ContentModule {
   id: string
@@ -17,54 +21,62 @@ interface ContentModule {
 }
 
 export function ContentSettings() {
-  const [modules, setModules] = useState<ContentModule[]>([
-    {
-      id: "news",
-      name: "Notícias",
-      enabled: true,
-      description: "Gerencie e publique notícias do site",
-    },
-    {
-      id: "events",
-      name: "Eventos",
-      enabled: true,
-      description: "Crie e gerencie eventos",
-    },
-    {
-      id: "piercast",
-      name: "Piercast (Podcasts)",
-      enabled: true,
-      description: "Gerencie episódios de podcast",
-    },
-    {
-      id: "gallery",
-      name: "Galeria",
-      enabled: false,
-      description: "Compartilhe fotos e mídias",
-    },
-    {
-      id: "testimonials",
-      name: "Depoimentos",
-      enabled: false,
-      description: "Mostre depoimentos de clientes",
-    },
-  ])
-
+  const [modules, setModules] = useState<ContentModule[]>([])
   const [postsPerPage, setPostsPerPage] = useState("10")
   const [showSaveDialog, setShowSaveDialog] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
 
-  const handleToggleModule = (id: string) => {
-    setModules(
-      modules.map((m) => (m.id === id ? { ...m, enabled: !m.enabled } : m))
-    )
+  useEffect(() => {
+    async function loadModules() {
+      try {
+        const data = await getContentModules()
+        setModules(data)
+      } catch (error) {
+        console.error("Erro ao carregar módulos:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadModules()
+  }, [])
+
+  const handleToggleModule = async (id: string) => {
+    const module = modules.find((m) => m.id === id)
+    if (!module) return
+
+    try {
+      await updateContentModule(id, !module.enabled)
+      setModules(
+        modules.map((m) =>
+          m.id === id ? { ...m, enabled: !m.enabled } : m
+        )
+      )
+    } catch (error) {
+      console.error("Erro ao atualizar módulo:", error)
+    }
   }
 
-  const handleSave = () => {
-    setShowSaveDialog(false)
-    console.log({
-      modules,
-      postsPerPage,
-    })
+  const handleSave = async () => {
+    setIsSaving(true)
+    try {
+      setShowSaveDialog(false)
+      // Salvar configuração de posts por página aqui
+    } catch (error) {
+      console.error("Erro ao salvar:", error)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="pt-6 flex justify-center">
+          <Loader className="h-6 w-6 animate-spin text-muted-foreground" />
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
@@ -127,11 +139,21 @@ export function ContentSettings() {
           <div className="border-t pt-6">
             <Button
               onClick={() => setShowSaveDialog(true)}
+              disabled={isSaving}
               className="w-full"
               size="lg"
             >
-              <Save className="h-4 w-4 mr-2" />
-              Salvar Configurações
+              {isSaving ? (
+                <>
+                  <Loader className="h-4 w-4 mr-2 animate-spin" />
+                  Salvando...
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4 mr-2" />
+                  Salvar Configurações
+                </>
+              )}
             </Button>
           </div>
         </CardContent>
