@@ -6,7 +6,7 @@ import { faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/shared/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,8 @@ import { Input } from "@/components/ui/input";
 
 const DEFAULT_REDIRECT = "/costumer";
 
-export default function LoginPage() {
+// Componente interno que usa o hook
+function LoginFormContent() {
   const supabase = createClient();
   const searchParams = useSearchParams();
 
@@ -23,11 +24,8 @@ export default function LoginPage() {
   const [loadingSSO, setLoadingSSO] = useState(false);
   const [loadingPassword, setLoadingPassword] = useState(false);
 
-  // "next" vem do middleware quando o usuário tentava acessar
-  // uma URL protegida sem estar logado; senão, cai no default
   const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
 
-  // Mensagens de erro vindas do /auth/callback
   const errorParam = searchParams.get("error");
   const errorMessage = errorParam
     ? errorParam === "auth_failed"
@@ -35,7 +33,6 @@ export default function LoginPage() {
       : "Login cancelado ou não autorizado."
     : null;
 
-  // Login via e-mail e senha
   async function loginWithPassword() {
     setLoadingPassword(true);
 
@@ -54,14 +51,12 @@ export default function LoginPage() {
     window.location.href = next;
   }
 
-  // Login via SSO Microsoft
   async function loginWithMicrosoft() {
     setLoadingSSO(true);
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "azure",
       options: {
-        // pra onde o usuário volta depois do callback processar a sessão
         redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
         scopes: "email openid profile",
       },
@@ -71,8 +66,6 @@ export default function LoginPage() {
       setLoadingSSO(false);
       alert(error.message);
     }
-    // se não der erro, o navegador já foi redirecionado pra Microsoft,
-    // então não precisa fazer mais nada aqui
   }
 
   return (
@@ -146,5 +139,14 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Componente exportado que envolve em Suspense
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen">Carregando...</div>}>
+      <LoginFormContent />
+    </Suspense>
   );
 }
