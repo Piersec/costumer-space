@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCurrentUserName } from "./actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
@@ -13,8 +14,24 @@ import Image from "next/image";
 
 import { Header } from "@/components/dashboard/header";
 
-export default function costumerArea() {
+interface Props {
+  user: any;
+  open: boolean;
+  onClose: () => void;
+}
+
+export default function CustomerArea({ user }: Props) {
   const [activePage, setActivePage] = useState<string | null>(null);
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    async function loadName() {
+      const currentName = await getCurrentUserName();
+      setName(currentName ?? "");
+    }
+
+    loadName();
+  }, []);
 
   const renderPage = () => {
     switch (activePage) {
@@ -54,16 +71,17 @@ export default function costumerArea() {
 
         <div>
           <h1 className="text-2xl font-bold mt-10">
-            Olá, ! O que você gostaria de fazer hoje?
+            Olá, {name}! O que você gostaria de fazer hoje?
           </h1>
         </div>
 
         <div className="grid grid-cols-3 gap-4 mt-8">
           <div
             onClick={() => setActivePage("news")}
-            className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
+            className="hover:scale-105 transition-all duration-500  hover:saturate-100 hover:opacity-100"
           >
-            <Image title="Notícias"
+            <Image
+              title="Notícias"
               src="/cards/noticias.png"
               alt="Marketing Card"
               width={500}
@@ -74,9 +92,10 @@ export default function costumerArea() {
 
           <div
             onClick={() => setActivePage("podcasts")}
-            className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
+            className="hover:scale-105 transition-all duration-500 saturate-0 hover:saturate-100 hover:opacity-100"
           >
-            <Image title="PierCast"
+            <Image
+              title="PierCast"
               src="/cards/piercast.png"
               alt="New User Card"
               width={500}
@@ -87,9 +106,10 @@ export default function costumerArea() {
 
           <div
             onClick={() => setActivePage("events")}
-            className="cursor-pointer hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100"
+            className="hover:scale-105 transition-all duration-500 saturate-0 hover:saturate-100 hover:opacity-100"
           >
-            <Image title="Eventos"
+            <Image
+              title="Eventos"
               src="/cards/eventos.png"
               alt="Config Card"
               width={500}

@@ -15,7 +15,8 @@ export default function SplashScreen() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!mounted) return null; // evita flash errado antes de saber o tema
+  // espera não só montar, mas o tema já estar resolvido
+  if (!mounted || !resolvedTheme) return null;
 
   const videoSrc =
     resolvedTheme === "dark" ? "/videos/splashB.mp4" : "/videos/splashW.mp4";
@@ -32,6 +33,7 @@ export default function SplashScreen() {
         >
           <div className="w-60 h-60 overflow-hidden rounded-md">
             <video
+              key={videoSrc}
               autoPlay
               loop
               muted
@@ -39,7 +41,7 @@ export default function SplashScreen() {
               controls={false}
               disablePictureInPicture
               controlsList="nodownload noplaybackrate noremoteplayback"
-              className=" object-cover pointer-events-none select-none"
+              className="object-cover pointer-events-none select-none"
             >
               <source src={videoSrc} type="video/mp4" />
             </video>
