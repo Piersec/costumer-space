@@ -37,7 +37,7 @@ export default function DashboardPage() {
                />
             </div>
             </a>
-            <a href="" title="Novos Usuarios" target="_blank" rel="noopener noreferrer">
+            <a href="/admin/dashboard/users" title="Novos Usuarios" rel="noopener noreferrer">
             <div className="hover:scale-105 transition-all duration-500 opacity-10 hover:opacity-100">
               <Image 
                src="/cards/newuser.png" 

@@ -3,6 +3,7 @@ import { Header } from "@/components/dashboard/header";
 import ColorMode from "@/components/ui/ColorMode";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import Settings from "@/components/ui/Settings";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -22,7 +23,7 @@ export default function DashboardLayout({
           </div>
 
           <div className="backdrop-blur-xs bg-background/10 rounded-full">
-            <ColorMode />
+            <Settings />
           </div>
         </div>
 

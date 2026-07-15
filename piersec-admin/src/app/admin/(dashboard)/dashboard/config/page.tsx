@@ -11,7 +11,7 @@ export default function ConfigPage() {
         <main className="p-6 mx-70">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <Link href="/dashboard" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-3">
+              <Link href="./" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-3">
                 <ArrowLeft className="h-4 w-4" />
                 Voltar
               </Link>
