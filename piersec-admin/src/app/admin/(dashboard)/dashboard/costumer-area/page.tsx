@@ -87,12 +87,14 @@ export default function CustomerArea({ user }: Props) {
               width={500}
               height={300}
               className="rounded-lg border border-border"
+              loading="eager"
+              priority
             />
           </div>
 
           <div
             onClick={() => setActivePage("podcasts")}
-            className="hover:scale-105 transition-all duration-500 saturate-0 hover:saturate-100 hover:opacity-100"
+            className="hover:scale-105 transition-all duration-500"
           >
             <Image
               title="PierCast"
@@ -101,12 +103,14 @@ export default function CustomerArea({ user }: Props) {
               width={500}
               height={300}
               className="rounded-lg border border-border"
+              loading="eager"
+              priority
             />
           </div>
 
           <div
             onClick={() => setActivePage("events")}
-            className="hover:scale-105 transition-all duration-500 saturate-0 hover:saturate-100 hover:opacity-100"
+            className="hover:scale-105 transition-all duration-500"
           >
             <Image
               title="Eventos"
@@ -115,6 +119,8 @@ export default function CustomerArea({ user }: Props) {
               width={500}
               height={300}
               className="rounded-lg border border-border"
+              loading="eager"
+              priority
             />
           </div>
         </div>

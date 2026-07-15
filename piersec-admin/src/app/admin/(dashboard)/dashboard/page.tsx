@@ -22,12 +22,14 @@ export default function DashboardPage() {
               rel="noopener noreferrer"
               href="https://piersec.sharepoint.com"
             >
-              <div className="hover:scale-105 transition-all duration-500 saturate-0 hover:saturate-100 hover:opacity-100">
+              <div className="hover:scale-105 transition-all duration-500">
                 <Image
                   src="/cards/sharepoint.png"
                   alt="Marketing Card"
                   width={500}
                   height={300}
+                  loading="eager"
+                  priority
                   className="rounded-lg hover:backdrop-blur-xs border border-border"
                 />
               </div>
@@ -37,12 +39,14 @@ export default function DashboardPage() {
               title="Novos Usuarios"
               rel="noopener noreferrer"
             >
-              <div className="hover:scale-105 transition-all duration-500 saturate-0 hover:saturate-100 hover:opacity-100">
+              <div className="hover:scale-105 transition-all duration-500">
                 <Image
                   src="/cards/newuser.png"
                   alt="New User Card"
                   width={500}
                   height={300}
+                  loading="eager"
+                  priority
                   className="rounded-lg hover:backdrop-blur-xs border border-border"
                 />
               </div>
@@ -50,15 +54,16 @@ export default function DashboardPage() {
             <a
               href="/admin/dashboard/costumer-area"
               title="Configurações"
-              target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="hover:scale-105 transition-all duration-500 saturate-0 hover:saturate-100 hover:opacity-100">
+              <div className="hover:scale-105 transition-all duration-500">
                 <Image
                   src="/cards/areadocliente.png"
                   alt="Config Card"
                   width={500}
                   height={300}
+                  loading="eager"
+                  priority
                   className="rounded-lg hover:backdrop-blur-xs border border-border"
                 />
               </div>
