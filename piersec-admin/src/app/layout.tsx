@@ -23,10 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={montserrat.variable} suppressHydrationWarning>
       <body className={montserrat.className}>
-
-        <div className="absolute z-1000">
-          <SplashScreen />
-        </div>
+        <SplashScreen />
         {children}
       </body>
     </html>

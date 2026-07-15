@@ -69,12 +69,10 @@ function LoginFormContent() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="">
-        <div className=" flex flex-col w-[400px] p-8 rounded-lg border border-border">
-          <h1>
-            Bem-vindo à <span className="font-bold">Área do Cliente!</span>
-          </h1>
+    <div className="flex flex-col w-[400px] p-8 rounded-lg border border-border backdrop-blur-sm">
+      <h1>
+        Bem-vindo à <span className="font-bold">Área do Cliente!</span>
+      </h1>
           <p className="text-muted-foreground mb-10  text-sm">
             Por favor, faça login para continuar.
           </p>
@@ -137,8 +135,6 @@ function LoginFormContent() {
             {loadingPassword ? "Entrando..." : "Entrar"}
           </Button>
         </div>
-      </div>
-    </div>
   );
 }
 
