@@ -7,15 +7,18 @@ export default function Settings() {
 
 
   return (
-    <div>
+    <div className="h-15 w-15 items-center flex justify-center rounded-full border">
       <a href="/admin/dashboard/config">
       <button
         className="
-                h-15 w-15 items-center justify-between rounded-full border
+                
             "
       >
         <FontAwesomeIcon icon={faGear}
           className="
+                
+                animation
+                transition hover:scale-125
                 flex
                 justify-center
                 items-center

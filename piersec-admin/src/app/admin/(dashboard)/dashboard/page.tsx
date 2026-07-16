@@ -35,7 +35,7 @@ export default function DashboardPage() {
               </div>
             </a>
             <a
-              href="/admin/dashboard/users"
+              href="/admin/dashboard/new-users"
               title="Novos Usuarios"
               rel="noopener noreferrer"
             >

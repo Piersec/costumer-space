@@ -46,7 +46,7 @@ export function Header() {
             </li>
 
             <li className="rounded-full bg-black px-8 py-2">
-              <a href="/dashboard" className="text-lg text-white">
+              <a href="/admin/dashboard/users" className="text-lg text-white">
                 Usuários
               </a>
             </li>
